@@ -17,10 +17,15 @@ const userSchema = new mongoose.Schema({
     minlength: 8
   }
 });
+userSchema.statics.findUserByCredentials = function (email, password) {
+
+};
+
+module.exports = mongoose.model('user', userSchema);
 
 
 userSchema.statics.findUserByCredentials = function(email, password) {
-  return this.findOne({ email }) 
+  return this.findOne({ email })
     .then(user => {
       if (!user) {
         return Promise.reject(new Error("Неправильные почта или пароль"));

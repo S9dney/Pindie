@@ -13,6 +13,7 @@ const createUser = async (req, res, next) => {
     res.status(400).send("Ошибка при создании пользователя");
   }
 };
+ 
 
 const findUserById = async (req, res, next) => {
   console.log("GET /users/:id");
