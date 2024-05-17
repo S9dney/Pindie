@@ -54,29 +54,19 @@ const deleteGame = async (req, res, next) => {
     res.status(400).send({ message: "Error deleting game" });
   }
 };
-const checkEmptyFields = async (req, res, next) => {
-  if (
-    !req.body.title ||
-    !req.body.description ||
-    !req.body.image ||
-    !req.body.link ||
-    !req.body.developer
-  ) {
-    res.setHeader("Content-Type", "application/json");
-        res.status(400).send(JSON.stringify({ message: "Заполни все поля" }));
-  } else {
+/*const checkEmptyFields = async (req, res, next) => {
+  if(req.isVoteRequest) {
     next();
+    return;
   }
-};
+}*/
 
-const checkIfCategoriesAvaliable = async (req, res, next) => {
-if (!req.body.categories || req.body.categories.length === 0) {
-  res.setHeader("Content-Type", "application/json");
-      res.status(400).send(JSON.stringify({ message: "Выбери хотя бы одну категорию" }));
-} else {
-  next();
-}
-};
+/*const checkIfCategoriesAvaliable = async (req, res, next) => {
+  if(req.isVoteRequest) {
+    next();
+    return;
+  }
+};*/
 
 const checkIfUsersAreSafe = async (req, res, next) => {
 if (!req.body.users) {
@@ -108,5 +98,16 @@ if (Object.keys(req.body).length === 1 && req.body.users) {
 }
 next();
 };
-
+const checkIfCategoriesAvaliable = async (req, res, next) => {
+  if(req.isVoteRequest) {
+    next();
+    return;
+  }
+};
+const checkEmptyFields = async (req, res, next) => {
+  if(req.isVoteRequest) {
+    next();
+    return;
+  }
+}
 module.exports = {findAllGames,createGame,findGameById,updateGame,deleteGame, checkEmptyFields,checkIfCategoriesAvaliable,checkIfUsersAreSafe,checkIsGameExists,checkIsVoteRequest}
